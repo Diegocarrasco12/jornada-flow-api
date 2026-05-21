@@ -7,7 +7,7 @@ const getHealth = async (req, res) => {
     res.json({
       message: 'Jornada Flow API funcionando',
       database: 'Conectada',
-      time: result.rows[0],
+      time: result.rows[0].now,
     });
   } catch (error) {
     console.error(error);
