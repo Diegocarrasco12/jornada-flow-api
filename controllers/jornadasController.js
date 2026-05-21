@@ -3,18 +3,17 @@ const db = require('../db');
 const getJornadas = async (req, res) => {
   try {
     const result = await db.query(`
-      SELECT
-        id,
-        trabajador AS grupo,
-        'Turno' AS turno,
-        fecha AS "horaInicio",
-        COALESCE(nota, '') AS nota,
-        latitud,
-        longitud,
-        precision_gps
-      FROM jornadas
-      ORDER BY id DESC
-    `);
+  SELECT
+    id,
+    trabajador,
+    fecha,
+    latitud,
+    longitud,
+    precision_gps,
+    COALESCE(nota, '') AS nota
+  FROM jornadas
+  ORDER BY id DESC
+`);
 
     res.json(result.rows);
   } catch (error) {
@@ -57,16 +56,7 @@ const createJornada = async (req, res) => {
       ]
     );
 
-    res.status(201).json({
-      id: result.rows[0].id,
-      grupo: result.rows[0].trabajador,
-      turno: 'Turno',
-      horaInicio: result.rows[0].fecha,
-      nota: '',
-      latitud: result.rows[0].latitud,
-      longitud: result.rows[0].longitud,
-      precision_gps: result.rows[0].precision_gps,
-    });
+    res.status(201).json(result.rows[0]);
 
   } catch (error) {
     console.error('Error creando jornada:', error);
