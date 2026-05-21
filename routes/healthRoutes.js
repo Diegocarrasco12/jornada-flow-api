@@ -4,6 +4,7 @@ const { getHealth } = require('../controllers/healthController');
 
 const router = express.Router();
 
-router.get('/', getHealth);
+// Endpoint correcto
+router.get('/health', getHealth);
 
 module.exports = router;
